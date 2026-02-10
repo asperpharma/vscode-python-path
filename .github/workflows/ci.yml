@@ -31,4 +31,3 @@ jobs:
     
     - name: Run tests
       run: xvfb-run -a npm test
-      if: runner.os == 'Linux'

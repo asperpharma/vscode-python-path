@@ -39,6 +39,11 @@ from module.name import (
 
 ![Generate import statement](https://raw.githubusercontent.com/mgesbert/vscode-python-path/master/images/readme_2.gif)
 
+## Documentation
+
+- [Deployment Flow](docs/deployment-flow.md) - Guide for building, testing, and publishing the extension
+- [Health Check](docs/health-check.md) - Monitoring and verification procedures for extension health
+
 ## Miscellaneous
 
 Inspiration from the Sublime Package: https://github.com/pokidovea/copy_python_path

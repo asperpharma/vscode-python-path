@@ -14,10 +14,9 @@ function getPythonPath(filePath) {
   const fileName = splittedPath.pop();
 
   // removing extension
-  let pythonPath =
-    fileName !== "__init__.py"
-      ? [fileName.substring(0, fileName.lastIndexOf("."))]
-      : [];
+  let pythonPath = fileName !== "__init__.py"
+    ? [fileName.substring(0, fileName.lastIndexOf("."))]
+    : [];
 
   while (
     splittedPath.length > 0 &&
@@ -36,8 +35,8 @@ function copyPythonPath(uri) {
       : vscode.window.activeTextEditor.document.fileName;
     const pythonPath = getPythonPath(filePath);
     const selections = vscode.window.activeTextEditor.selections
-      .map(s => vscode.window.activeTextEditor.document.getText(s))
-      .filter(s => !!s && !s.includes("\n") && !s.trim().includes(" "));
+      .map((s) => vscode.window.activeTextEditor.document.getText(s))
+      .filter((s) => !!s && !s.includes("\n") && !s.trim().includes(" "));
     if (pythonPath && selections.length > 0) {
       const importStatement = generateImportStatement(pythonPath, selections);
       vscode.env.clipboard.writeText(importStatement);
@@ -57,14 +56,14 @@ function generateImportStatement(pythonPath, selections) {
     const selection = selections[0].trim();
     return `from ${pythonPath} import ${selection}`;
   }
-  const selection = selections.map(s => `\t${s.trim()},`).join("\n");
+  const selection = selections.map((s) => `\t${s.trim()},`).join("\n");
   return `from ${pythonPath} import (\n${selection}\n)`;
 }
 
 function activate(context) {
   let disposable = vscode.commands.registerCommand(
     "extension.copyPythonPath",
-    copyPythonPath
+    copyPythonPath,
   );
   context.subscriptions.push(disposable);
 }

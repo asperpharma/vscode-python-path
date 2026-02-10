@@ -1,6 +1,7 @@
 # Python Path
 
-This extension adds a set of tools which help you generate internal import statements in a python project.
+This extension adds a set of tools which help you generate internal import
+statements in a python project.
 
 ## Features
 
@@ -19,8 +20,8 @@ Copies the full module name of the current file to the clipboard.
 
 ### Generate import statement
 
-Copies an import statement for the selected text to the clipboard.
-In case of a simple selection, the generated statement will be:
+Copies an import statement for the selected text to the clipboard. In case of a
+simple selection, the generated statement will be:
 
 ```
 from module.name import selected_text
@@ -41,7 +42,8 @@ from module.name import (
 
 ## Miscellaneous
 
-Inspiration from the Sublime Package: https://github.com/pokidovea/copy_python_path
+Inspiration from the Sublime Package:
+https://github.com/pokidovea/copy_python_path
 
 ## Credits
 

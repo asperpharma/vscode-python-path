@@ -42,7 +42,8 @@
 
 ### Bug Fixes
 
-- **syntax:** avoid generating import statements when selecting text which is not a valid variable name
+- **syntax:** avoid generating import statements when selecting text which is
+  not a valid variable name
 
 ### Improvements
 
@@ -54,7 +55,8 @@
 
 ### Bug Fixes
 
-- **syntax:** avoid generating import statements when selecting text which contains "\n"
+- **syntax:** avoid generating import statements when selecting text which
+  contains "\n"
 
 ### Improvements
 

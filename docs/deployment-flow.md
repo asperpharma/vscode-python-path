@@ -6,6 +6,49 @@ This document describes the deployment process for the Python Path VS Code exten
 
 The Python Path extension is published to the Visual Studio Code Marketplace. The deployment flow involves building, testing, packaging, and publishing the extension.
 
+## The Launch Trigger: Deploy to Production
+
+Your code is ready. You just need to push the "Start" button.
+
+### Automated Deployment
+
+The repository is configured with GitHub Actions to automatically deploy the extension to production when changes are merged to the main branch.
+
+**Action:** Merge your changes to the main branch on GitHub.
+
+**Methods:**
+- Click "Merge Pull Request" in the GitHub UI
+- Or use the command line:
+  ```bash
+  git checkout main
+  git merge your-feature-branch
+  git push origin main
+  ```
+
+**Result:** This signals GitHub Actions to automatically:
+1. Run all tests to ensure code quality
+2. Build and package the extension
+3. Publish the new version to the VS Code Marketplace
+4. Create a GitHub release with the packaged `.vsix` file
+
+**Prerequisites for Automated Deployment:**
+- The `VSCE_PAT` secret must be configured in the repository settings
+- All tests must pass
+- The version in `package.json` must be higher than the currently published version
+
+**Monitoring the Deployment:**
+- Navigate to the "Actions" tab in the GitHub repository
+- Find the workflow run triggered by your merge
+- Monitor the deployment progress and check for any errors
+- Once complete, verify the new version on the VS Code Marketplace
+
+**Manual Override:**
+If you need to trigger the deployment workflow manually without merging to main, you can use the "workflow_dispatch" event:
+- Go to Actions tab in GitHub
+- Select "Deploy to Production" workflow
+- Click "Run workflow"
+- Choose the branch and click "Run workflow"
+
 ## Prerequisites
 
 Before deploying, ensure you have:
@@ -158,6 +201,43 @@ For automated deployments:
    npm install -g @vscode/vsce
    vsce publish -p $VSCE_PAT
    ```
+
+### GitHub Actions Automated Deployment
+
+The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically deploys the extension when changes are merged to the main branch.
+
+**Setup Steps:**
+
+1. **Configure the VSCE_PAT secret:**
+   - Generate a Personal Access Token (PAT) from Azure DevOps with Marketplace publishing permissions
+   - Go to your GitHub repository > Settings > Secrets and variables > Actions
+   - Click "New repository secret"
+   - Name: `VSCE_PAT`
+   - Value: Your Personal Access Token
+   - Click "Add secret"
+
+2. **Workflow Triggers:**
+   - **Automatic:** Triggers on push to `main` branch
+   - **Manual:** Can be triggered manually via the Actions tab using workflow_dispatch
+
+3. **Workflow Steps:**
+   - Checks out the code
+   - Sets up Node.js environment
+   - Installs dependencies
+   - Runs tests
+   - Packages the extension
+   - Publishes to VS Code Marketplace
+   - Creates a GitHub release with the packaged `.vsix` file
+
+4. **Monitoring:**
+   - View workflow runs in the Actions tab
+   - Check for green checkmarks (success) or red X's (failure)
+   - Review logs for any errors or issues
+
+**Important Notes:**
+- Ensure the version in `package.json` is incremented before merging to main
+- All tests must pass for deployment to succeed
+- The workflow will only publish if the push event occurs (not on manual workflow_dispatch without the publish step enabled)
 
 ## Version Management
 

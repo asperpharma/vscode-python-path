@@ -41,7 +41,7 @@ from module.name import (
 
 ## Documentation
 
-- [Deployment Flow](docs/deployment-flow.md) - Guide for building, testing, and publishing the extension
+- [Deployment Flow](docs/deployment-flow.md) - Guide for building, testing, and publishing the extension (includes automated deployment via GitHub Actions)
 - [Health Check](docs/health-check.md) - Monitoring and verification procedures for extension health
 
 ## Miscellaneous

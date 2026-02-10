@@ -204,21 +204,30 @@ After successful deployment:
 
 If a deployed version has critical issues:
 
-1. **Publish a hotfix version:**
-   - The recommended approach is to create a new patch version with the fix
+1. **Publish a hotfix version (RECOMMENDED):**
+   - The best approach is to create a new patch version with the fix
+   - Update CHANGELOG.md to document the issue and fix
    - Test thoroughly before publishing
    - Publish the hotfix version (e.g., if 1.2.3 is broken, publish 1.2.4 with fixes)
 
    ```bash
    # After fixing the issue
-   vsce publish patch
+   # Update version in package.json to 1.2.4
+   # Update CHANGELOG.md
+   vsce publish
    ```
 
-2. **Alternative - Checkout and republish previous version (not recommended):**
-   - Only use if a hotfix isn't immediately possible
+2. **Alternative - Emergency rollback (use only if hotfix isn't immediately possible):**
    - Checkout the previous stable version from git
-   - Update version number to be higher than current
-   - Republish
+   - Increment to a new version number (higher than the broken one)
+   - Update CHANGELOG.md to document the rollback:
+     ```markdown
+     ## [1.2.4] - YYYY-MM-DD
+     ### Reverted
+     - Rolled back changes from 1.2.3 due to critical bug
+     - Restored functionality from version 1.2.2
+     ```
+   - Publish the rolled-back code as the new version
 
 3. **Notify users** through:
    - GitHub issues
@@ -226,9 +235,11 @@ If a deployed version has critical issues:
    - Marketplace description update
 
 4. **Post-rollback:**
-   - Document the issue and root cause
-   - Add regression tests
+   - Document the issue and root cause in GitHub issues
+   - Add regression tests to prevent recurrence
    - Plan proper fix for next version
+
+**Important:** Never attempt to unpublish or re-publish the same version number, as this can cause issues for users who have already installed it.
 
 ## Security Considerations
 

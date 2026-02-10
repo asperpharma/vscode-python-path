@@ -10,7 +10,7 @@ The Python Path extension is published to the Visual Studio Code Marketplace. Th
 
 Before deploying, ensure you have:
 
-- Node.js (v12 or later) installed
+- Node.js (v18 or later recommended, minimum v12) installed
 - npm package manager
 - Visual Studio Code Extension Manager (`vsce`) installed globally:
   ```bash
@@ -204,17 +204,31 @@ After successful deployment:
 
 If a deployed version has critical issues:
 
-1. **Publish the previous stable version:**
+1. **Publish a hotfix version:**
+   - The recommended approach is to create a new patch version with the fix
+   - Test thoroughly before publishing
+   - Publish the hotfix version (e.g., if 1.2.3 is broken, publish 1.2.4 with fixes)
+
    ```bash
-   vsce publish <previous-version>
+   # After fixing the issue
+   vsce publish patch
    ```
 
-2. **Notify users** through:
+2. **Alternative - Checkout and republish previous version (not recommended):**
+   - Only use if a hotfix isn't immediately possible
+   - Checkout the previous stable version from git
+   - Update version number to be higher than current
+   - Republish
+
+3. **Notify users** through:
    - GitHub issues
    - Extension changelog
    - Marketplace description update
 
-3. **Fix the issue** in a new version and redeploy
+4. **Post-rollback:**
+   - Document the issue and root cause
+   - Add regression tests
+   - Plan proper fix for next version
 
 ## Security Considerations
 

@@ -14,7 +14,8 @@ The extension activates on the following events (defined in `package.json`):
 
 - `onLanguage:python` - When a Python file is opened
 - `onCommand:extension.copyPythonPath` - When the Copy Python Path command is invoked
-- `onCommand:extension.generateImportStatement` - When the Generate Import Statement command is invoked
+
+**Note:** The `generateImportStatement` activation event is listed in `package.json` but the functionality is handled by the `copyPythonPath` command based on text selection.
 
 ### Verification Steps
 
@@ -45,7 +46,9 @@ The extension activates on the following events (defined in `package.json`):
 
 The extension registers the following command:
 
-- `extension.copyPythonPath` - Copy Python Path
+- `extension.copyPythonPath` - Copy Python Path / Generate Import Statement
+
+This single command handles both basic path copying and import statement generation based on whether text is selected in the editor.
 
 ### Manual Verification
 
@@ -355,7 +358,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - run: npm install
       - run: npm test
       - name: Report failure
